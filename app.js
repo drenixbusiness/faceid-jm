@@ -489,7 +489,7 @@ function eventFromXml(xmlText) {
 
 function extractAccessEvent(data) {
     if (!data || typeof data !== 'object') return null;
-    if (data.AccessControllerEvent) return tryParseJson(data.AccessControllerEvent);
+    if (data.AccessControllerEvent) return data;
     if (data.EventNotificationAlert && data.EventNotificationAlert.AccessControllerEvent) {
         return tryParseJson(data.EventNotificationAlert.AccessControllerEvent);
     }
