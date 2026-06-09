@@ -791,6 +791,9 @@ async function runNoShowCheck() {
 
 app.post('/hikvision/event', upload.any(), async (req, res) => {
     console.log('Incoming webhook request received at /hikvision/event');
+    console.log('CONTENT-TYPE:', req.headers['content-type']);
+    console.log('RAW BODY KEYS:', Object.keys(req.body || {}));
+    console.log('RAW BODY FULL:', JSON.stringify(req.body, null, 2));
     try {
         let data = {};
         if (req.body && req.body.event_log) {
