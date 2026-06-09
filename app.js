@@ -66,17 +66,23 @@ const SHIFT_RULES = {
     }
 };
 
-// ====== JM EMPLOYEES ======
-// Add your employees below in this format:
-// 'FACEID_ID': { name: 'EMPLOYEE NAME', shiftKey: '6-3' },
-const EMPLOYEE_SHIFT_MAP = {
-    // 'WRITE_FACEID_ID_HERE': { name: 'WRITE_NAME_HERE', shiftKey: '6-3' },
-};
-
-const EMPLOYEE_SECRET_KEYS = {
-    // 'WRITE_FACEID_ID_HERE': 'WRITE_SECRET_KEY_HERE',
-};
-// ==========================
+// ====== EMPLOYEES (loaded from employees.json) ======
+// employees.json is gitignored — each server (new office / old office)
+// has its own file with that office's face ID numbers.
+// Format of employees.json:
+// {
+//   "FACEID_ID": { "name": "EMPLOYEE NAME", "shiftKey": "6-3" },
+//   "FACEID_ID": { "name": "EMPLOYEE NAME", "shiftKey": "5-2" }
+// }
+let EMPLOYEE_SHIFT_MAP = {};
+try {
+    EMPLOYEE_SHIFT_MAP = require('./employees.json');
+    console.log(`✅ Loaded ${Object.keys(EMPLOYEE_SHIFT_MAP).length} employees from employees.json`);
+} catch (e) {
+    console.warn('⚠️  employees.json not found — no employees loaded. Create it to start tracking.');
+}
+const EMPLOYEE_SECRET_KEYS = {};
+// ====================================================
 
 const app = express();
 const upload = multer();
